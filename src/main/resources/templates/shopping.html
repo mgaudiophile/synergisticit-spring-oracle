@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Shopping</title>
+</head>
+<body>
+
+	<form method="POST" th:action="@{/shopping/insert_category}" th:object="${category}">
+		Category Name: <input type="text" th:field="*{cat_name}" /> 
+		<input type="submit" value="INSERT CATEGORY" />
+	</form>
+
+	<form method="POST" th:action="@{/shopping/update_category}" th:object="${category}">
+		Category Id: <input type="text" th:field="*{cat_id}" /> 
+		Category Name: <input type="text" th:field="*{cat_name}" /> 
+		<input type="submit" value="UPDATE CATEGORY" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>Category ID</th>
+			<th>Category Name</th>
+		</tr>
+		<tr th:each="cat : ${categoryList}" >
+			<td th:text="${cat.cat_id}"></td>
+			<td th:text="${cat.cat_name}"></td>
+			<td><a th:href="@{/shopping/delete_category(cat_id=${cat.cat_id})}">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr/>
+	<form method="POST" th:action="@{/shopping/insert_product}" th:object="${product}">
+		Category Id: <input type="text" th:field="*{cat_id}" /> 
+		Product Name: <input type="text" th:field="*{prod_name}" />
+		Price: <input type="text" th:field="*{price}" /> 
+		Stock: <input type="text" th:field="*{stock}" />
+		Vendor: <input type="text" th:field="*{vendor}" /> 
+		<input type="submit" value="INSERT PRODUCT" />
+	</form>
+
+	<form method="POST" th:action="@{/shopping/update_product}" th:object="${product}">
+		Product Id: <input type="text" th:field="*{prod_id}" /> 
+		Category Id: <input type="text" th:field="*{cat_id}" /> 
+		Product Name: <input type="text" th:field="*{prod_name}" />
+		Price: <input type="text" th:field="*{price}" /> 
+		Stock: <input type="text" th:field="*{stock}" />
+		Vendor: <input type="text" th:field="*{vendor}" /> 
+		<input type="submit" value="UPDATE PRODUCT" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>Product ID</th>
+			<th>Category ID</th>
+			<th>Product Name</th>
+			<th>Price</th>
+			<th>Stock</th>
+			<th>Vendor</th>
+		</tr>
+		<tr th:each="p : ${productList}" >
+			<td th:text="${p.prod_id}"></td>
+			<td th:text="${p.cat_id}"></td>
+			<td th:text="${p.prod_name}"></td>
+			<td th:text="${p.price}"></td>
+			<td th:text="${p.stock}"></td>
+			<td th:text="${p.vendor}"></td>
+			<td><a th:href="@{/shopping/delete_product(prod_id=${p.prod_id},prod_name=${p.prod_name})}">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr/>
+	<form method="POST" th:action="@{/shopping/insert_customer}" th:object="${customer}">
+		First Name: <input type="text" th:field="*{first_name}" /> 
+		Last Name: <input type="text" th:field="*{last_name}" />
+		Street: <input type="text" th:field="*{addr.street}" />
+		City: <input type="text" th:field="*{addr.city}" /> 
+		State: <input type="text" th:field="*{addr.state}" /> 
+		Zip: <input type="text" th:field="*{addr.zip}" /> 
+		Mobile: <input type="text" th:field="*{mobile}" />
+		<input type="submit" value="INSERT CUSTOMER" />
+	</form>
+
+	<form method="POST" th:action="@{/shopping/update_customer}" th:object="${customer}">
+		Customer Id: <input type="text" th:field="*{customer_id}" />
+		First Name: <input type="text" th:field="*{first_name}" /> 
+		Last Name: <input type="text" th:field="*{last_name}" />
+		Street: <input type="text" th:field="*{addr.street}" />
+		City: <input type="text" th:field="*{addr.city}" /> 
+		State: <input type="text" th:field="*{addr.state}" /> 
+		Zip: <input type="text" th:field="*{addr.zip}" /> 
+		Mobile: <input type="text" th:field="*{mobile}" />
+		<input type="submit" value="UPDATE CUSTOMER" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>Customer ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Street</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Zip</th>
+			<th>Mobile</th>
+		</tr>
+		<tr th:each="c : ${customerList}" >
+			<td th:text="${c.customer_id}"></td>
+			<td th:text="${c.first_name}"></td>
+			<td th:text="${c.last_name}"></td>
+			<td th:text="${c.addr.street}"></td>
+			<td th:text="${c.addr.city}"></td>
+			<td th:text="${c.addr.state}"></td>
+			<td th:text="${c.addr.zip}"></td>
+			<td th:text="${c.mobile}"></td>
+			<td><a th:href="@{/shopping/delete_customer(customer_id=${c.customer_id},first_name=${c.first_name},last_name=${c.last_name})}">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr/>
+	<form method="POST" th:action="@{/shopping/insert_order_table}" th:object="${order_table}">
+		Customer Id: <input type="text" th:field="*{customer_id}" /> 
+		Product Id: <input type="text" th:field="*{prod_id}" />
+		Order Date: <input type="date" th:field="*{order_date}" />
+		Quantity: <input type="text" th:field="*{quantity}" /> 
+		Order Status: <input type="text" th:field="*{order_status}" /> 
+		<input type="submit" value="INSERT ORDER_TABLE" />
+	</form>
+
+	<form method="POST" th:action="@{/shopping/update_order_table}" th:object="${order_table}">
+		Order Id: <input type="text" th:field="*{order_id}" /> 
+		Customer Id: <input type="text" th:field="*{customer_id}" /> 
+		Product Id: <input type="text" th:field="*{prod_id}" />
+		Order Date: <input type="date" th:field="*{order_date}" />
+		Quantity: <input type="text" th:field="*{quantity}" /> 
+		Order Status: <input type="text" th:field="*{order_status}" /> 
+		<input type="submit" value="UPDATE ORDER_TABLE" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>Order ID</th>
+			<th>Customer ID</th>
+			<th>Product ID</th>
+			<th>Order Date</th>
+			<th>Quantity</th>
+			<th>Total Price</th>
+			<th>Order Status</th>
+		</tr>
+		<tr th:each="o : ${orderList}" >
+			<td th:text="${o.order_id}"></td>
+			<td th:text="${o.customer_id}"></td>
+			<td th:text="${o.prod_id}"></td>
+			<td th:text="${o.order_date}"></td>
+			<td th:text="${o.quantity}"></td>
+			<td th:text="${o.total_price}"></td>
+			<td th:text="${o.order_status}"></td>
+			<td><a th:href="@{/shopping/delete_order_table(order_id=${o.order_id},customer_id=${o.customer_id})}">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr/>
+	<form method="POST" th:action="@{/shopping/insert_payment}" th:object="${payment}">
+		Order Id: <input type="text" th:field="*{order_id}" /> 
+		Payment Status: <input type="text" th:field="*{status}" />
+		<input type="submit" value="INSERT PAYMENT" />
+	</form>
+
+	<form method="POST" th:action="@{/shopping/update_payment}" th:object="${payment}">
+		Payment Id: <input type="text" th:field="*{payment_id}" /> 
+		Order Id: <input type="text" th:field="*{order_id}" /> 
+		Payment Status: <input type="text" th:field="*{status}" />
+		<input type="submit" value="UPDATE PAYMENT" />
+	</form>
+	<br>
+	<table>
+		<tr>
+			<th>Payment ID</th>
+			<th>Order ID</th>
+			<th>Payment Status</th>
+		</tr>
+		<tr th:each="pay : ${paymentList}" >
+			<td th:text="${pay.payment_id}"></td>
+			<td th:text="${pay.order_id}"></td>
+			<td th:text="${pay.status}"></td>
+			<td><a th:href="@{/shopping/delete_payment(payment_id=${pay.payment_id},order_id=${pay.order_id})}">delete</a></td>
+		</tr>
+	</table>
+
+</body>
+</html>
